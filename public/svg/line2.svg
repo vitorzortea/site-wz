@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 107.85 18.34">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: url(#Gradiente_sem_nome_8);
+        stroke-miterlimit: 10;
+        stroke-width: 4px;
+      }
+    </style>
+    <linearGradient id="Gradiente_sem_nome_8" data-name="Gradiente sem nome 8" x1="0" y1="9.17" x2="107.85" y2="9.17" gradientUnits="userSpaceOnUse">
+      <stop offset=".06" stop-color="#f90"/>
+      <stop offset=".39" stop-color="#fda500"/>
+      <stop offset="1" stop-color="#f9c700"/>
+      <stop offset="1" stop-color="#f9c800"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-1" d="m1.83,1.1c4,9.17,6.79,15.24,11.75,15.24S18.25,2,25.16,2s4.18,13.79,11.57,13.79,5.33-13.66,12.3-13.66,5.69,14.21,12.24,14.21,2.73-13.79,11.63-13.79,3.82,13.79,12.66,13.79,1.94-13.72,11.03-13.72,5.27,12.83,11.27,12.83"/>
+</svg>

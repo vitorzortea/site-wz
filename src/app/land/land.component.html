@@ -1,0 +1,142 @@
+<header class="flex flex-wrap justify-content-between align-items-center z-2">
+    <img src="svg/logo.svg" alt="Work Zone" />
+    <nav>
+        <a href="#" class="p-2 border-round-md"><i class="fa-brands fa-square-instagram"></i></a>
+        <a href="#" class="p-2 border-round-md"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#" class="p-2 border-round-md"><i class="fa-brands fa-square-facebook"></i></a>
+        <a href="#" class="p-2 border-round-md"><i class="fa-brands fa-square-whatsapp"></i> (63) 99219-1184</a>
+    </nav>
+</header>
+<section id="hero"
+    class="
+        grid
+        px-2
+        pb-2
+        bg-no-repeat
+        bg-cover
+        bg-center
+        justify-content-between
+        align-items-stretch
+    ">
+    <div id="bg-geometric" class="col-6 flex flex-wrap flex-column justify-content-center relative">
+        <div>
+            <h1>
+                <span>Seu Espaço</span>
+                Suas Conexões
+            </h1>
+            <p>Reinventamos o conceito de espaço de trabalho, projetado para maximizar sua produtividade e criatividade, impulsionando a inovação e o crescimento do seu network.</p>
+            <button><i class="fa-regular fa-circle-down"></i> Veja nossos planos</button>
+        </div>
+        <img class="absolute" src="/svg/line1.svg" alt="detalhes">
+        <img class="absolute" src="/svg/line2.svg" alt="detalhes">
+        <img class="absolute" src="/svg/seta.svg" alt="detalhes">
+    </div>
+    <div class="col-5 flex flex-column justify-content-center">
+        <div id="ilustracao-banner" class="w-30rem">
+            <img src="/svg/li1.svg" alt="Ilustração" />
+            <img src="/img/hero.png" alt="Ilustração" />
+            <img src="/svg/li2.svg" alt="Ilustração" />
+        </div>
+    </div>
+</section>
+
+<section id="number-infos">
+    <div class="grid p-2 align-items-center">
+        <div class="col-auto pl-4">
+            <h2>
+                <span>Em nossas</span>Instalações
+            </h2>
+        </div>
+        <div class="col box-info">
+            <span><span>08</span></span>
+            <span>Estações de trabalhos</span>
+        </div>
+        <div class="col box-info">
+            <span><span>03</span></span>
+            <span>Espaços individuais</span>
+        </div>
+        <div class="col box-info">
+            <span><span>02</span></span>
+            <span>Salas de reuniões</span>
+        </div>
+        <div class="col box-info">
+            <span><span>02</span></span>
+            <span>Recepções ao publico</span>
+        </div>
+    </div>
+</section>
+
+<section id="solucoes" class="grid p-2 align-items-stretch justify-content-center gap-3">
+    <aside class="col-3">
+        <menu>
+            <li>
+                <button [ngClass]="{'-select': index===0}" (click)="index=0">
+                    <i class="fa-solid fa-building-circle-check"></i> Escritórios Privativos
+                </button>
+            </li>
+            <li>
+                <button [ngClass]="{'-select': index===1}" (click)="index=1">
+                    <i class="fa-solid fa-chair-office"></i> Estações de trabalho
+                </button>
+            </li>
+            <li>
+                <button [ngClass]="{'-select': index===2}" (click)="index=2">
+                    <i class="fa-solid fa-handshake"></i> Salas de Reuniões
+                </button>
+            </li>
+            <li>
+                <button [ngClass]="{'-select': index===3}" (click)="index=3">
+                    <i class="fa-solid fa-envelopes-bulk"></i> Escritório Virtual
+                </button>
+            </li>
+            <li>
+                <button [ngClass]="{'-select': index===4}" (click)="index=4">
+                    <i class="fa-solid fa-laptop-mobile"></i> Aplicação Web interno
+                </button>
+            </li>
+            <li>
+                <button [ngClass]="{'-select': index===5}" (click)="index=5">
+                    <i class="fa-solid fa-file-contract"></i> Certificado Digital
+                </button>
+            </li>
+        </menu>
+    </aside>
+    <article class="col-6">
+        <h2>{{solucoes[index].title}}</h2>
+        @for (text of solucoes[index].text; track $index) {
+            <p>{{ text }}</p>
+        }
+        <ul>
+            @for (list of solucoes[index].list; track  $index) {
+                <li>{{ list }}</li>
+            }
+        </ul>
+        <small>{{solucoes[index].small}}</small>
+        <a [href]="solucoes[index].buton">Saiba mais</a>
+    </article>
+</section>
+
+<section id="comunidade" class="pb-2 px-4">
+    <div class="grid gap-4 p-4 justify-content-center align-items-center">
+        <div class="col-4">
+            <img src="/img/cooperacao.png" alt="coopração" />
+        </div>
+        <div class="col-5">
+            <h2 class="title-mark pb-3">Criando uma <mark>Comunidade</mark></h2>
+            <p class="pb-2 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p class="pb-5 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irurnt mollit anim id est laborum.</p>
+            <button>Contratar um planos</button>
+        </div>
+    </div>
+</section>
+
+<span class="line-svg-1"></span>
+<iframe id="map" title="mapa" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3366.2561509587294!2d-48.32461732932171!3d-10.194022537785376!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9324cb001c91414d%3A0xa251a4ec638132ac!2sWork%20Zone!5e0!3m2!1spt-BR!2sbr!4v1724629665850!5m2!1spt-BR!2sbr" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+<footer>
+    <div class="grid">
+        <div class="col-6"></div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+    </div>
+</footer>

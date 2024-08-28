@@ -1,0 +1,415 @@
+@use 'sass:math';
+
+@mixin style-class($prop, $map, $responsive: false, $states: false) {
+    @each $key, $val in $map {
+        .#{$p}#{$key} {
+            #{$prop}: #{$val} !important;
+        }
+    }
+
+    @if ($states) {
+        @each $key, $val in $map {
+            .focus#{$url} {
+                &#{$p}#{$key}:focus {
+                    #{$prop}: #{$val} !important;
+                }
+            }
+
+            .hover#{$url} {
+                &#{$p}#{$key}:hover {
+                    #{$prop}: #{$val} !important;
+                }
+            }
+
+            .active#{$url} {
+                &#{$p}#{$key}:active {
+                    #{$prop}: #{$val} !important;
+                }
+            }
+        }
+    }
+
+    @if ($responsive) {
+        @each $key, $val in $breakpoints {
+            @media screen and (min-width: #{$val}) {
+                .#{$key + $url} {
+                    @each $key, $val in $map {
+                        &#{$p}#{$key} {
+                            #{$prop}: #{$val} !important;
+                        }
+                    }
+
+                    @if ($states) {
+                        @each $key, $val in $map {
+                            &focus#{$url} {
+                                &#{$p}#{$key}:focus {
+                                    #{$prop}: #{$val} !important;
+                                }
+                            }
+                
+                            &hover#{$url} {
+                                &#{$p}#{$key}:hover {
+                                    #{$prop}: #{$val} !important;
+                                }
+                            }
+                
+                            &active#{$url} {
+                                &#{$p}#{$key}:active {
+                                    #{$prop}: #{$val} !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin color-class($name, $prop, $colors, $shades) {
+    @each $color in $colors {
+        .#{$p}#{$name}#{$color} {
+            @each $shade in $shades {
+                &-#{$shade} {
+                    #{$prop}: var(--#{$color}-#{$shade}) !important;
+                }
+            }
+        }
+
+        .focus#{$url} {
+            &#{$p}#{$name}#{$color} {
+                @each $shade in $shades {
+                    &-#{$shade}:focus {
+                        #{$prop}: var(--#{$color}-#{$shade}) !important;
+                    }
+                }
+            }
+        }
+
+        .hover#{$url} {
+            &#{$p}#{$name}#{$color} {
+                @each $shade in $shades {
+                    &-#{$shade}:hover {
+                        #{$prop}: var(--#{$color}-#{$shade}) !important;
+                    }
+                }
+            }
+        }
+
+        .active#{$url} {
+            &#{$p}#{$name}#{$color} {
+                @each $shade in $shades {
+                    &-#{$shade}:active {
+                        #{$prop}: var(--#{$color}-#{$shade}) !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin surface-class($name, $prop, $shades) {
+    @each $shade in $shades {
+        .#{$p}#{$name}-#{$shade} {
+            #{$prop}: var(--surface-#{$shade}) !important;
+        }
+    }
+
+    @each $shade in $shades {
+        .focus#{$url} {
+            &#{$p}#{$name}-#{$shade}:focus {
+                #{$prop}: var(--surface-#{$shade}) !important;
+            }
+        }
+
+        .hover#{$url} {
+            &#{$p}#{$name}-#{$shade}:hover {
+                #{$prop}: var(--surface-#{$shade}) !important;
+            }
+        }
+
+        .active#{$url} {
+            &#{$p}#{$name}-#{$shade}:active {
+                #{$prop}: var(--surface-#{$shade}) !important;
+            }
+        }
+    }
+}
+
+@mixin border-class($name, $directions, $scales) {
+    @each $dir, $prop in $directions {
+        @for $i from 0 through length($scales) - 1 {
+            $borderValue: if($i == 0, 'none', $i);
+            $className: #{$name}-#{$dir}-#{$borderValue};
+            @if ($dir == '') {
+                $className: #{$name}-#{$borderValue};
+            }
+            
+            .#{$p}#{$className} {
+                @each $propName in $prop {
+                    #{$propName}-width: nth($scales, $i + 1) !important;
+                    #{$propName}-style: if($i == 0, none, solid);
+                }
+            }
+        }
+    }
+
+    @each $key, $val in $breakpoints {
+        @media screen and (min-width: #{$val}) {
+            .#{$key + $url} {
+                @each $dir, $prop in $directions {
+                    @for $i from 0 through length($scales) - 1 {
+                        $borderValue: if($i == 0, 'none', $i);
+                        $className: #{$name}-#{$dir}-#{$borderValue};
+                        @if ($dir == '') {
+                            $className: #{$name}-#{$borderValue};
+                        }
+                        
+                        &#{$p}#{$className} {
+                            @each $propName in $prop {
+                                #{$propName}-width: nth($scales, $i + 1) !important;
+                                #{$propName}-style: if($i == 0, none, solid);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin border-radius-class($map, $directions) {
+    @each $key, $val in $map {
+        $pName: $key;
+        $suffixName: '';
+        $index: str-index($key, 'border-round');
+
+        @if $index != null {
+            $pName: 'border-round';
+            $suffixName: str-slice($key, str-length('border-round') + 1, str-length($key));
+        }
+
+        @each $dir, $prop in $directions {
+            .#{$p}#{$pName}-#{$dir}#{$suffixName} {
+                @each $propName in $prop {
+                    #{$propName}: #{$val} !important;
+                }
+            }
+        }
+    }
+    
+    @each $key, $val in $breakpoints {
+        @media screen and (min-width: #{$val}) {
+            .#{$key + $url} {
+                @each $key, $val in $map {
+                    $pName: $key;
+                    $suffixName: '';
+                    $index: str-index($key, 'border-round');
+            
+                    @if $index != null {
+                        $pName: 'border-round';
+                        $suffixName: str-slice($key, str-length('border-round') + 1, str-length($key));
+                    }
+            
+                    @each $dir, $prop in $directions {
+                        &#{$p}#{$pName}-#{$dir}#{$suffixName} {
+                            @each $propName in $prop {
+                                #{$propName}: #{$val} !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin rgba-color-class($name, $prop, $colors, $shades) {
+    @each $colorName, $colorValue in $colors {
+        .#{$p}#{$name}#{$colorName}-alpha {
+            @each $shade in $shades {
+                &-#{$shade} {
+                    #{$prop}: #{"rgba(#{$colorValue},#{math.div($shade, 100)})"} !important;
+                }
+            }
+        }
+
+        .hover#{$url} {
+            &#{$p}#{$name}#{$colorName}-alpha {
+                @each $shade in $shades {
+                    &-#{$shade}:hover {
+                        #{$prop}: #{"rgba(#{$colorValue},#{math.div($shade, 100)})"} !important;
+                    }
+                }
+            }
+        }
+
+        .focus#{$url} {
+            &#{$p}#{$name}#{$colorName}-alpha {
+                @each $shade in $shades {
+                    &-#{$shade}:focus {
+                        #{$prop}: #{"rgba(#{$colorValue},#{math.div($shade, 100)})"} !important;
+                    }
+                }
+            }
+        }
+
+        .active#{$url} {
+            &#{$p}#{$name}#{$colorName}-alpha {
+                @each $shade in $shades {
+                    &-#{$shade}:active {
+                        #{$prop}: #{"rgba(#{$colorValue},#{math.div($shade, 100)})"} !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin spacing-class($inPrefix, $map, $scales, $responsive: true, $auto: false, $negative: false) {
+    $inPrefix: $p + $inPrefix;
+
+    @each $name, $prop in $map {
+        @for $i from 0 through length($scales) - 1 {
+            .#{$inPrefix}#{$name}-#{$i} {
+                @each $propName in $prop {
+                    #{$propName}: $hr * nth($scales, $i + 1) !important;
+                }
+            }
+        }
+
+        @if ($negative) {
+            @for $i from 1 through length($scales) - 1 {
+                .-#{$inPrefix}#{$name}-#{$i} {
+                    @each $propName in $prop {
+                        #{$propName}: -1 * $hr * nth($scales, $i + 1) !important;
+                    }
+                }
+            }
+        }
+
+        @if ($auto) {
+            .#{$inPrefix}#{$name}-auto {
+                @each $propName in $prop {
+                    #{$propName}: auto !important;
+                }
+            }
+        } 
+    }
+
+    @if ($responsive) {
+        @each $key, $val in $breakpoints {
+            @media screen and (min-width: #{$val}) {
+                @each $name, $prop in $map {
+                    @for $i from 0 through length($scales) - 1 {
+                        .#{$key + $url}#{$inPrefix}#{$name}-#{$i} {
+                            @each $propName in $prop {
+                                #{$propName}: $hr * nth($scales, $i + 1) !important;;
+                            }
+                        }
+                    }
+
+                    @if ($negative) {
+                        @for $i from 1 through length($scales) - 1 {
+                            .#{$key + $url}-#{$inPrefix}#{$name}-#{$i} {
+                                @each $propName in $prop {
+                                    #{$propName}: -1 * $hr * nth($scales, $i + 1) !important;
+                                }
+                            }
+                        }
+                    }
+
+                    @if ($auto) {
+                        .#{$key + $url}#{$inPrefix}#{$name}-auto {
+                            @each $propName in $prop {
+                                #{$propName}: auto !important;;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin generate-class($map, $responsive: false, $states: false) {
+    @each $name, $propMap in $map {
+        .#{$p}#{$name} {
+            @each $prop, $val in $propMap {
+                #{$prop}: #{$val} !important;
+            }
+        }
+    }
+
+    @if ($states) {
+        @each $name, $propMap in $map {
+            .focus#{$url} {
+                &#{$p}#{$name}:focus {
+                    @each $prop, $val in $propMap {
+                        #{$prop}: #{$val} !important;
+                    }
+                }
+            }
+
+            .hover#{$url} {
+                &#{$p}#{$name}:hover {
+                    @each $prop, $val in $propMap {
+                        #{$prop}: #{$val} !important;
+                    }
+                }
+            }
+
+            .active#{$url} {
+                &#{$p}#{$name}:active {
+                    @each $prop, $val in $propMap {
+                        #{$prop}: #{$val} !important;
+                    }
+                }
+            }
+        }
+    }
+
+    @if ($responsive) {
+        @each $key, $val in $breakpoints {
+            @media screen and (min-width: #{$val}) {
+                .#{$key + $url} {
+                    @each $name, $propMap in $map {
+                        &#{$p}#{$name} {
+                            @each $prop, $val in $propMap {
+                                #{$prop}: #{$val} !important;
+                            }
+                        }
+                    }
+                
+                    @if ($states) {
+                        @each $name, $propMap in $map {
+                            &focus#{$url} {
+                                &#{$p}#{$name}:focus {
+                                    @each $prop, $val in $propMap {
+                                        #{$prop}: #{$val} !important;
+                                    }
+                                }
+                            }
+                
+                            &hover#{$url} {
+                                &#{$p}#{$name}:hover {
+                                    @each $prop, $val in $propMap {
+                                        #{$prop}: #{$val} !important;
+                                    }
+                                }
+                            }
+                
+                            &active#{$url} {
+                                &#{$p}#{$name}:active {
+                                    @each $prop, $val in $propMap {
+                                        #{$prop}: #{$val} !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
